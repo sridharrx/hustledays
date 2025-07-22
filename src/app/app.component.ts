@@ -8,19 +8,25 @@ import { CommonModule } from '@angular/common'; // ✅ Add this
   standalone: true,
   imports: [FormsModule, CommonModule], // ✅ Add CommonModule here
   template: `
-    <h1>HustleDays</h1>
+  <div class="app-container">
+    <h1 class="header">HustleDays</h1>
     <p>Logging for <strong>{{ formatDisplayDate(selectedDate) }}</strong></p>
 
-    <input type="date" [(ngModel)]="selectedDate" />
-    <br /><br />
+    <div class="input-group">
+      <input type="date" [(ngModel)]="selectedDate" />
+      <textarea [(ngModel)]="entry" placeholder="What happened on this day?"></textarea>
+      <button (click)="save()">Save</button>
+    </div>
 
-    <textarea [(ngModel)]="entry" placeholder="What happened on this day?"></textarea>
-    <button (click)="save()">Save</button>
+    <div class="log-list">
+  <div *ngFor="let log of logs()" class="log-card">
+    <div class="emoji">🗓️</div>
+    <div class="text">{{ log }}</div>
+    <div class="date">{{ selectedDate }}</div>
+  </div>
+</div>
+`
 
-    <ul>
-      <li *ngFor="let log of logs()">{{ log }}</li>
-    </ul>
-  `
 })
 
 export class AppComponent {
